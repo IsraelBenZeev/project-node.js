@@ -5,10 +5,11 @@ const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
 const tourRouter = require('./routes/tourRoutes');
 const usersRouter = require('./routes/usersRoutes');
+console.log("enter app.js");
 
 const app = express();
 
-console.log(`---${process.env.NODE_ENV}---`);
+// console.log(`---${process.env.NODE_ENV}---`);
 
 if ((process.env.NODE_ENV || '').trim() === 'development') {
   app.use(morgan('dev'));

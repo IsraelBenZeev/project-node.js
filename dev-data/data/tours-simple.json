@@ -205,53 +205,6 @@
       "2022-01-16,10:00",
       "2022-12-12,10:00"
     ]
-  },
-  {
-    "id": 9,
-    "name": "Test Tour",
-    "duration": 10,
-    "diffculty": "easy"
-  },
-  {
-    "id": 10,
-    "name": "Test Tour",
-    "duration": 4,
-    "diffculty": "easy"
-  },
-  {
-    "id": 11,
-    "name": "Test Tour",
-    "duration": 5,
-    "diffculty": "easy"
-  },
-  {
-    "id": 12,
-    "name": "Test Tour",
-    "duration": 5,
-    "diffculty": "easy"
-  },
-  {
-    "id": 13,
-    "name": "Test Tour",
-    "duration": 5,
-    "diffculty": "easy"
-  },
-  {
-    "id": 14,
-    "name": "Test Tour",
-    "duration": 5,
-    "diffculty": "easy"
-  },
-  {
-    "id": 15,
-    "name": "Test Tour",
-    "duration": 5,
-    "diffculty": "easy"
-  },
-  {
-    "id": 16,
-    "name": "Test Tour",
-    "duration": 5,
-    "diffculty": "easy"
   }
+  
 ]

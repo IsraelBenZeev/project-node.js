@@ -5,6 +5,8 @@ const app = require('./app');
 // dotenv.config({ path: './config.env' });
 // console.log('l:',process.env.NODE_ENV);
 
+console.log('enter server');
+
 const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD,
@@ -24,4 +26,3 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`App running on port ${port}...`);
 });
-console.log('ddd');
