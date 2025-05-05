@@ -1,0 +1,1 @@
+mongodb+srv://israelbz:8uTHBkjBc5slMnZh@cluster0.b6hps0s.mongodb.net/
