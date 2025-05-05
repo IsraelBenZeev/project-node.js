@@ -141,4 +141,5 @@ tourSchema.pre('aggregate', function (next) {
 tourSchema.index({ name: 1 }, { unique: true });
 const Tour = mongoose.model('Tour', tourSchema);
 
+
 module.exports = Tour;
