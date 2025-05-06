@@ -8,6 +8,8 @@ const usersRouter = require('./routes/usersRoutes');
 console.log('enter app.js');
 
 const app = express();
+console.log('test');
+
 
 // console.log(`---${process.env.NODE_ENV}---`);
 
