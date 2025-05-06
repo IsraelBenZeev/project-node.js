@@ -9,6 +9,7 @@ console.log('enter app.js');
 
 const app = express();
 console.log('test');
+console.log('test -v 2.1');
 
 
 // console.log(`---${process.env.NODE_ENV}---`);
