@@ -1,7 +1,7 @@
 // const { stack } = require('../app');
 const AppError = require('../utils/AppError');
 
-const handleCastErrirDB = (err) => {
+const handleCastErrorDB = (err) => {
   //מטפל בשגיאות של ID לא נכון
   const message = `Invalid ${err.path}: ${err.value}`;
   return new AppError(message, 400);
@@ -14,7 +14,7 @@ const handleCastErrirDB = (err) => {
 // };
 
 const handleDuplicateFielsDB = (err) => {
-  const value = err.keyValue.name;
+  const value = err.message.match(/email: "(.*?)"/)[1];  
   const message = `Duplicate field value: ${value}. Please use another value!`;
   return new AppError(message, 400);
 };
@@ -66,7 +66,7 @@ module.exports = (err, req, res, next) => {
     error.message = err.message;
 
     if (err.name === 'CastError')
-      error = handleCastErrirDB(error);
+      error = handleCastErrorDB(error);
 
     if (err.code === 11000) {
       console.log('enter to if 11000');

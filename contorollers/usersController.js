@@ -1,4 +1,6 @@
 exports.getAllUsers = (req, res) => {
+  console.log('enter to get all users');
+  
   res.status(500).json({
     status: 'error',
     message: 'This rout is not defined!',

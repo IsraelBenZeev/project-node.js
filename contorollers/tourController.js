@@ -97,7 +97,7 @@ exports.updateTOur = catchAsync(async (req, res) => {
     {
       new: true,
       runValidators: true,
-    },
+    },  
   );
   if (!tour) {
     return next(
