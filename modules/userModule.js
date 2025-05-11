@@ -32,8 +32,9 @@ const userSchema = mongoose.Schema({
       8,
       'A password mist have more 8 characters',
     ],
+    select: false,
   },
-  passwordConfrim: {
+  passwordConfirm: {
     type: String,
     validate: {
       validator: function (el) {
@@ -46,7 +47,7 @@ const userSchema = mongoose.Schema({
 });
 
 userSchema.pre('save', async function (next) {
-  console.log('enter to pre save');
+  console.log('enter to find middlewere pre of users');
 
   if (!this.isModified('password')) return next();
   this.password = await bcryptjs.hash(this.password, 12);
@@ -55,6 +56,15 @@ userSchema.pre('save', async function (next) {
   this.passwordConfrim = undefined;
   next();
 });
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword,
+) {
+  return await bcryptjs.compare(
+    candidatePassword,
+    userPassword,
+  );
+};
 
 const User = mongoose.model('User', userSchema);
 

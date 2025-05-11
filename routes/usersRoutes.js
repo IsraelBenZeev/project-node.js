@@ -5,6 +5,7 @@ const authontroller = require('../contorollers/authController');
 const router = express.Router();
 
 router.route('/signup').post(authontroller.signUp);
+router.route('/login').post(authontroller.login);
 
 router
   .route('/')

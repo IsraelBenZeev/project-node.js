@@ -1,5 +1,6 @@
 const express = require('express');
 const tourControllers = require('../contorollers/tourController');
+const authController = require('../contorollers/authController');
 
 const router = express.Router();
 // router.param('id', tourControllers.checkId);
@@ -9,10 +10,13 @@ router.get(
   tourControllers.getAllTours,
 );
 router.get('/tour-stats', tourControllers.getTourstat);
-router.get('/monthly-plan/:year', tourControllers.getMonthlyPlan);
+router.get(
+  '/monthly-plan/:year',
+  tourControllers.getMonthlyPlan,
+);
 router
   .route('/')
-  .get(tourControllers.getAllTours)
+  .get(authController.protect, tourControllers.getAllTours)
   .post(tourControllers.creatTour);
 // .post(tourControllers.checkReqBody, tourControllers.creatTour);
 router

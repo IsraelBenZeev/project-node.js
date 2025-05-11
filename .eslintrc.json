@@ -5,7 +5,8 @@
     "plugin:node/recommended"
   ],
   "plugins": [
-    "prettier"
+    "prettier",
+    "spellcheck"
   ],
   "rules": {
     "prettier/prettier": "off",
@@ -20,7 +21,7 @@
     "no-underscore-dangle": "off",
     "class-methods-use-this": "off",
     "ecmaVersion": "latest",
-
+    
     "prefer-destructuring": [
       "error",
       {
@@ -32,6 +33,23 @@
       "warn",
       {
         "argsIgnorePattern": "req|res|next|val"
+      }
+    ],
+    "spellcheck/spell-checker": [
+      "warn",
+      {
+        "comments": true,
+        "strings": true,
+        "identifiers": true,
+        "lang": "en_US",
+        "skipWords": [
+          "bcrypt", "req", "res", "jsonwebtoken", "mongo", "mongoose", "jwt"
+        ],
+        "skipIfMatch": [
+          "http://[^s]*",
+          "^[-\\w]+/[-\\w\\.]+$"
+        ],
+        "minLength": 3
       }
     ]
   },

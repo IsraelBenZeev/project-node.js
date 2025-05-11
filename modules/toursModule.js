@@ -115,14 +115,14 @@ tourSchema.pre('save', function (next) {
 //   next();
 // });
 tourSchema.pre(/^find/, function (next) {
-  console.log('find middlewere pre');
+  console.log('enter to find middlewere pre of tours');
 
   this.find({ secretTour: { $ne: true } });
   this.start = Date.now();
   next();
 });
 tourSchema.post(/^find/, function (docs, next) {
-  console.log('find middlewere post');
+  console.log('enter to find middlewere post of tours');
   // console.log(docs);
   console.log(
     `query took: ${Date.now() - this.start} miliseconds`,
@@ -131,7 +131,7 @@ tourSchema.post(/^find/, function (docs, next) {
 });
 //AGGREGATION MIDDELEWARE
 tourSchema.pre('aggregate', function (next) {
-  console.log('enter aggregate middlewere');
+  console.log('enter to aggregate middlewere of tours');
   this.pipeline().unshift({
     $match: { secretTour: { $ne: true } },
   });

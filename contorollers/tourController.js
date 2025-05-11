@@ -1,7 +1,7 @@
 const Tour = require('../modules/toursModule');
 const APIfeaturs = require('../utils/apiFeaturs');
-const AppError = require('../utils/AppError');
 const catchAsync = require('../utils/catchAsync');
+const AppError = require('../utils/AppError');
 
 // const tours = JSON.parse(
 //   fs.readFileSync(

@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const app = require('./app');
 
-
 console.log('enter server');
 
 const DB = process.env.DATABASE.replace(
@@ -25,6 +24,11 @@ mongoose
 const port = process.env.PORT || 3000;
 const server = app.listen(port, (err) => {
   console.log(`App running on port ${port}...`);
+  const now = new Date();
+  console.log(
+    'Current local date and time:',
+    now.toLocaleString(),
+  );
 });
 
 process.on('unhandledRejection', (err) => {
