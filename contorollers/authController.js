@@ -1,3 +1,4 @@
+const { promisify } = require('util');
 const User = require('../modules/userModule');
 const jwt = require('jsonwebtoken');
 const catchAsync = require('../utils/catchAsync');
@@ -17,6 +18,8 @@ exports.signUp = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
+    passwordChangedAt: req.body.passwordChangedAt,
+    role: req.body.role,
   });
   console.log(
     'process.env.JWT_EXPIRES_IN: ',
@@ -58,7 +61,7 @@ exports.login = catchAsync(async (req, res, next) => {
       new AppError('Incoreect email or password', 404),
     );
   }
-  console.log('user: ', user);
+  // console.log('user: ', user);
 
   const token = signToken(user.id);
   res.status(200).json({
@@ -67,6 +70,8 @@ exports.login = catchAsync(async (req, res, next) => {
   });
 });
 exports.protect = catchAsync(async (req, res, next) => {
+  //4 checks
+  // 1) if exist token on this user
   let token;
   if (
     req.headers.authorization &&
@@ -74,7 +79,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   ) {
     token = req.headers.authorization.split(' ')[1];
   }
-  console.log('token: ', token);
   if (!token) {
     next(
       new AppError(
@@ -83,6 +87,30 @@ exports.protect = catchAsync(async (req, res, next) => {
       ),
     );
   }
-
+  // 2) check if token verify
+  const decoded = await promisify(jwt.verify)(
+    token,
+    process.env.JWT_SECRET,
+  );
+  // 3) if user exist
+  const currenthUser = await User.findById(decoded.id);
+  if (!currenthUser) {
+    return next(
+      new AppError(
+        'The user belonging to this token does longer exist!',
+        401,
+      ),
+    );
+  }
+  // 4) if password change
+  if (currenthUser.isChangedPasswordAfter(decoded.iat)) {
+    return next(
+      new AppError(
+        'User recently changed password! Please log in again',
+        401,
+      ),
+    );
+  }
+  req.user = currenthUser;
   next();
 });

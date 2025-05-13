@@ -23,5 +23,8 @@ router
   .route('/:id')
   .get(tourControllers.getTour)
   .patch(tourControllers.updateTOur)
-  .delete(tourControllers.deleteTour);
+  .delete(
+    tourControllers.restriceTo('admin'),
+    tourControllers.deleteTour,
+  );
 module.exports = router;

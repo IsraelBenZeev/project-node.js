@@ -14,7 +14,7 @@ const handleCastErrorDB = (err) => {
 // };
 
 const handleDuplicateFielsDB = (err) => {
-  const value = err.message.match(/email: "(.*?)"/)[1];  
+  const value = err.message.match(/email: "(.*?)"/)[1];
   const message = `Duplicate field value: ${value}. Please use another value!`;
   return new AppError(message, 400);
 };
@@ -24,10 +24,16 @@ const validationErrorDB = (err) => {
   const errors = Object.values(err.errors).map(
     (el) => el.message,
   );
-  const message = `Invalid iniput date. ${errors.join('. ')}`
+  const message = `Invalid iniput date. ${errors.join('. ')}`;
   return new AppError(message, 400);
 };
-
+const handleJWTError = () =>
+  new AppError('Invalid token. Please log in again😒', 401);
+const handleExpiredError = () =>
+  new AppError(
+    'Your token has expired! Please log in again',
+    401,
+  );
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -74,8 +80,15 @@ module.exports = (err, req, res, next) => {
     }
     if (err.name === 'ValidationError') {
       console.log('enter if of ValidationError');
-
       error = validationErrorDB(error);
+    }
+    if (err.name === 'JsonWebTokenError') {
+      console.log('enter to JsonWebTokenError error');
+      error = handleJWTError(error);
+    }
+    if (err.name === 'TokenExpiredError') {
+      console.log('enter to TokenExpiredError error');
+      error = handleExpiredError(error);
     }
 
     sendErrorProduction(error, res);
