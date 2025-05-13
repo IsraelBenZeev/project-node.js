@@ -39,7 +39,6 @@ exports.signUp = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
   console.log('enter to login');
-
   const { email, password } = req.body;
   if (!email || !password) {
     return next(
@@ -49,7 +48,7 @@ exports.login = catchAsync(async (req, res, next) => {
       ),
     );
   }
-
+  //select('+password') מכיון שהסיסמה לא חוזרת למשתמש;
   const user = await User.findOne({ email: email }).select(
     '+password',
   );
@@ -114,3 +113,52 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = currenthUser;
   next();
 });
+exports.restriceTo = (...roles) => {
+  console.log('enter restriceTo');
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      console.log('enter to if of req.user.role');
+      return next(
+        new AppError(
+          'You do not have permission to perform this action',
+          403,
+        ),
+      );
+    }
+    next();
+  };
+};
+exports.forgotPassword = catchAsync(
+  async (req, res, next) => {
+    console.log('enter to forgot password');
+    const { email } = req.body;
+    if (!email) {
+      console.log('enter to !email');
+      return next(
+        new AppError(
+          'Please provide your email for reser password',
+          500,
+        ),
+      );
+    }
+    console.log('email: ', email);
+
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      console.log('enter to !user');
+      return next(
+        new AppError(
+          'There is not user with email adress',
+          404,
+        ),
+      );
+    }
+    const resetToken = user.createPasswordResetToken();
+    // console.log('resetToken: ', resetToken);
+
+    await user.save({ validateBeforeSave: false });
+  },
+);
+exports.resetPassword = catchAsync(
+  async (req, res, next) => {},
+);

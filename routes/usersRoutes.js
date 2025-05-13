@@ -8,6 +8,13 @@ router.route('/signup').post(authontroller.signUp);
 router.route('/login').post(authontroller.login);
 
 router
+  .route('/forgotPassword')
+  .post(authontroller.forgotPassword);
+router
+  .route('/resetPassword')
+  .post(authontroller.resetPassword);
+
+router
   .route('/')
   .get(userController.getAllUsers)
   .post(userController.createUser);

@@ -24,7 +24,8 @@ router
   .get(tourControllers.getTour)
   .patch(tourControllers.updateTOur)
   .delete(
-    tourControllers.restriceTo('admin'),
+    authController.protect,
+    authController.restriceTo('admin'),
     tourControllers.deleteTour,
   );
 module.exports = router;

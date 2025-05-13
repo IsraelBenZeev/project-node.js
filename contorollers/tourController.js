@@ -208,6 +208,3 @@ exports.getMonthlyPlan = async (req, res) => {
     });
   }
 };
-exports.restriceTo = catchAsync(async (req, res, next)=>{
-  
-})
